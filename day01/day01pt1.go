@@ -1,41 +1,15 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
-	"os"
 	"strconv"
 )
 
-var erg int
-
-var dial int = 50
-
-func main() {
-	file, err := os.Open("day01pt1Input.txt")
-	if err != nil {
-		panic(err)
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		line := scanner.Text()
-		dial = rotation(line, dial)
-	}
-
-	if err := scanner.Err(); err != nil {
-		panic(err)
-	}
-
-	fmt.Println("NullCount", erg)
-}
-
-func rotation(command string, dial int) int {
-	var currDial = dial
+func rotationPt1(command string, dial int) int {
+	currDial := dial
 	direction := command[:1]
 	turn := command[1:]
-	turnInt, err := strconv.Atoi(string(turn))
+
+	turnInt, err := strconv.Atoi(turn)
 	if err != nil {
 		panic(err)
 	}
@@ -43,23 +17,25 @@ func rotation(command string, dial int) int {
 	switch direction[0] {
 	case 'L':
 		for i := 0; i < turnInt; i++ {
-			if (currDial - 1) >= 0 {
-				currDial -= 1
+			if currDial > 0 {
+				currDial--
 			} else {
 				currDial = 99
 			}
 		}
 	case 'R':
 		for i := 0; i < turnInt; i++ {
-			if (currDial + 1) <= 99 {
-				currDial += 1
+			if currDial < 99 {
+				currDial++
 			} else {
 				currDial = 0
 			}
 		}
 	}
+
 	if currDial == 0 {
 		erg++
 	}
+
 	return currDial
 }
