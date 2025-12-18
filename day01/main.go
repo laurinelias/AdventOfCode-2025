@@ -7,24 +7,38 @@ import (
 )
 
 func main() {
-	// file, err := os.Open("day01pt1Input.txt")
-	file, err := os.Open("day01pt2Input.txt")
+	filePt1, err := os.Open("day01pt1Input.txt")
 	if err != nil {
 		panic(err)
 	}
-	defer file.Close()
 
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		line := scanner.Text()
-		// dial = rotationPt1(line, dial)
-		dial = rotationPt2(line, dial)
+	scannerPt1 := bufio.NewScanner(filePt1)
+	for scannerPt1.Scan() {
+		line := scannerPt1.Text()
+		dial = rotationPt1(line, dial)
 	}
-
-	if err := scanner.Err(); err != nil {
+	fmt.Println("NullCount Day 1Pt1:", erg)
+	defer filePt1.Close()
+	if err := scannerPt1.Err(); err != nil {
 		panic(err)
 	}
 
-	// fmt.Println("NullCount Day 1Pt1:", erg)
+	dial = 50
+	erg = 0
+	filePt2, err := os.Open("day01pt2Input.txt")
+	if err != nil {
+		panic(err)
+	}
+	defer filePt2.Close()
+	scannerPt2 := bufio.NewScanner(filePt2)
+	for scannerPt2.Scan() {
+		line := scannerPt2.Text()
+		dial = rotationPt2(line, dial)
+	}
 	fmt.Println("NullCount Day 1Pt2:", erg)
+
+	if err := scannerPt2.Err(); err != nil {
+		panic(err)
+	}
+
 }
