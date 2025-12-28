@@ -1,32 +1,11 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
-	"os"
 	"strconv"
 	"strings"
 )
 
-var sum int
-
-func main() {
-	file, err := os.Open("day02pt1Input.txt")
-	if err != nil {
-		panic(err)
-	}
-	defer file.Close()
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		tempInput := strings.Split(scanner.Text(), ",")
-		for _, element := range tempInput {
-			checkSequenze(element)
-		}
-		fmt.Println("sum", sum)
-	}
-}
-
-func checkSequenze(givenRange string) {
+func checkSequenzePt1(givenRange string) {
 	tempRange := strings.Split(givenRange, "-")
 	start, err := strconv.Atoi(string(tempRange[0]))
 	end, err := strconv.Atoi(string(tempRange[1]))
@@ -36,18 +15,18 @@ func checkSequenze(givenRange string) {
 
 	for i := start; i <= end; i++ {
 		if start <= 99 {
-			if checkOneDigit(i) {
+			if checkOneDigitPt1(i) {
 				sum += i
 			}
 		} else {
-			if checkManyDigits(i) {
+			if checkManyDigitsPt1(i) {
 				sum += i
 			}
 		}
 	}
 }
 
-func checkOneDigit(oneDigit int) bool {
+func checkOneDigitPt1(oneDigit int) bool {
 	s := strconv.Itoa(oneDigit)
 
 	if oneDigit <= 99 {
@@ -63,7 +42,7 @@ func checkOneDigit(oneDigit int) bool {
 	}
 }
 
-func checkManyDigits(manyDigit int) bool {
+func checkManyDigitsPt1(manyDigit int) bool {
 	s := strconv.Itoa(manyDigit)
 	if len(s)%2 == 0 {
 
